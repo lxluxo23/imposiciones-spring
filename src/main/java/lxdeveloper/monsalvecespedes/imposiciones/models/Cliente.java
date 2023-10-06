@@ -1,9 +1,8 @@
 package lxdeveloper.monsalvecespedes.imposiciones.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 
 @Entity
@@ -20,10 +19,13 @@ public class Cliente {
     private String rutRepresentante;
     private String nombreRepresentante;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Pago> pagos;
+
     public Cliente() {
     }
 
-    public Cliente(String rut, String nombre, String giro, String direccion, String comuna, String ciudad, String rutRepresentante, String nombreRepresentante) {
+    public Cliente(String rut, String nombre, String giro, String direccion, String comuna, String ciudad, String rutRepresentante, String nombreRepresentante, List<Pago> pagos) {
         this.rut = rut;
         this.nombre = nombre;
         this.giro = giro;
@@ -32,10 +34,15 @@ public class Cliente {
         this.ciudad = ciudad;
         this.rutRepresentante = rutRepresentante;
         this.nombreRepresentante = nombreRepresentante;
+        this.pagos = pagos;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRut() {
@@ -100,5 +107,13 @@ public class Cliente {
 
     public void setNombreRepresentante(String nombreRepresentante) {
         this.nombreRepresentante = nombreRepresentante;
+    }
+
+    public List<Pago> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<Pago> pagos) {
+        this.pagos = pagos;
     }
 }
